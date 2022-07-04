@@ -21,7 +21,7 @@
             <ion-label>{{ data.today }}</ion-label>
           </ion-item>
         </div>
-
+        <!--  -->
         <!-- CITY SELECTION DIV -->
         <div id="selectionContainer">
           <ion-item color="none" lines="none">
