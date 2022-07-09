@@ -21,7 +21,7 @@
             <ion-label>{{ data.today }}</ion-label>
           </ion-item>
         </div>
-        <!--  -->
+
         <!-- CITY SELECTION DIV -->
         <div id="selectionContainer">
           <ion-item color="none" lines="none">
@@ -47,7 +47,7 @@
           </ion-item>
           <!-- IMAGE CLOUD -->
           <ion-item color="none" lines="none">
-            <ion-img :src="data.imgCloud"></ion-img>
+            <ion-img id="logoCloud" :src="data.imgCloud"></ion-img>
           </ion-item>
           <!-- WEATHER TYPE -->
           <ion-item color="none" lines="none">
@@ -80,6 +80,7 @@ import { defineComponent, ref } from "vue";
 import { loadingController } from "@ionic/vue";
 import { Geolocation } from "@capacitor/geolocation";
 import { format, parseISO } from "date-fns";
+import { fr } from "date-fns/locale";
 
 export default defineComponent({
   name: "HomePage",
@@ -152,7 +153,6 @@ export default defineComponent({
           this.data.ville = data.name;
 
           // GET WEATHER TYPE
-
           this.data.weatherType = data.weather[0].description;
 
           // GET TEMP
@@ -166,6 +166,7 @@ export default defineComponent({
         });
     },
   }, //END FUNCTIONS
+
   ionViewDidEnter() {
     console.log("Ion View Did Enter");
     // GET A DEFAULT WEATHER DATA, CURRENT LOCATION
@@ -173,10 +174,11 @@ export default defineComponent({
 
     // GET DATE INFORMATION AND FORMAT
     const dateFromIonDatetime = new Date().toISOString();
-    const formattedString = format(parseISO(dateFromIonDatetime), "iiii, d MMM yyyy");
+    const formattedString = format(parseISO(dateFromIonDatetime), "iiii, d MMM yyyy", { locale: fr });
 
     this.data.today = formattedString;
   },
+
   setup() {
     const data = ref();
 
@@ -209,6 +211,7 @@ MARK: STYLES
   align-items: center;
   width: 100%;
 }
+
 #mainContainer {
   background-image: url("../../public/assets/image/sky.jpg");
   background-repeat: no-repeat;
@@ -231,6 +234,10 @@ MARK: STYLES
   width: 100%;
 }
 
+#logoCloud {
+  width: auto !important;
+  height: auto !important;
+}
 #footer {
   height: 100%;
   background-color: var(--ion-color-primary);
